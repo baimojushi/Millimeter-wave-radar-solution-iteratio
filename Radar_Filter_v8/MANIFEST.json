@@ -1,0 +1,20 @@
+{
+  "version": "v8-research-candidate",
+  "source_repository": "https://github.com/baimojushi/Millimeter-wave-radar-solution-iteratio",
+  "target_original": "Radar_analyze_test/main_bt_7.cpp",
+  "automated_assertions": {
+    "passed": 40,
+    "total": 40
+  },
+  "hardware_build": false,
+  "known_failure": "periodic body motion can masquerade as respiration",
+  "sha256": {
+    "main_bt_8.cpp": "9e4588ba05ec27f87f0f78770a3a6f7304b21c08c994571b20052053967ea7ec",
+    "radar_resp_filter_v8.h": "20aefd99aab7a33604c8dc3d9f75dd824cc61b086fb591d1d8fc91f3d2722695",
+    "test_v8.cpp": "f471b7d4e7d4afb62bcb404e44153f23fab5461dc67ba5686f6e6b6fc3cecbae",
+    "test_edge_v8.cpp": "14b5e350e02c6cabe6da7c241d61e90f8654ff6394ec43e80d9eae31c144d866",
+    "test_protocol_v8.cpp": "a5d27228c3617657282f2c0a9a84da8a4adb3d3a6f5c6f793443bb231f8d4255",
+    "test_stress_v8.cpp": "ddc091adf1fe85c9e40a1dbdd561398580f095a8aceee1eef935ba105b03325b",
+    "repro_v7_halving.cpp": "dfd38b972b4bee17ca3ed046e3a57f2b5e1c1d1821461577c7e47d52ff5b8b8d"
+  }
+}

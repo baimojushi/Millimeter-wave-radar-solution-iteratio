@@ -1,0 +1,76 @@
+== v8 core adversarial tests ==
+[PASS] bpm=9 lower boundary          br=  9.01 status=ok            conf=0.951 amp=0.696 cv=0.001 fs=50.00
+      window valid=14/14, MAE=0.01 bpm
+[PASS] bpm=12 noisy                  br= 12.01 status=ok            conf=0.980 amp=0.672 cv=0.003 fs=50.00
+      window valid=14/14, MAE=0.01 bpm
+[PASS] bpm=16 noisy                  br= 16.01 status=ok            conf=0.996 amp=0.702 cv=0.037 fs=50.00
+      window valid=14/14, MAE=0.01 bpm
+[PASS] bpm=20, no half-rate          br= 19.99 status=ok            conf=0.997 amp=0.680 cv=0.028 fs=50.00
+      window valid=14/14, MAE=0.01 bpm
+[PASS] bpm=24, no half-rate          br= 24.01 status=ok            conf=0.996 amp=0.673 cv=0.003 fs=50.00
+      window valid=14/14, MAE=0.01 bpm
+[PASS] bpm=30 upper boundary         br= 30.00 status=ok            conf=0.999 amp=0.670 cv=0.001 fs=50.00
+      window valid=14/14, MAE=0.00 bpm
+[PASS] phase +/-pi wrapping          br= 16.00 status=ok            conf=0.999 amp=0.648 cv=0.036 fs=50.00
+      window valid=14/14, MAE=0.01 bpm
+[PASS] weak second harmonic          br= 10.01 status=ok            conf=0.998 amp=0.713 cv=0.114 fs=50.00
+      window valid=14/14, MAE=0.01 bpm
+[PASS] flat drift/no breath          br=  0.00 status=low_signal    conf=0.000 amp=0.000 cv=0.000 fs=50.00
+[PASS] random noise only             br=  0.00 status=low_quality   conf=0.000 amp=0.000 cv=0.000 fs=50.00
+[PASS] human disappeared             br=  0.00 status=no_human      conf=0.000 amp=0.000 cv=0.000 fs= 0.00
+[PASS] NaN packet sanitization       br=  0.00 status=bad_input     conf=0.000 amp=0.000 cv=0.000 fs= 0.00
+[PASS] Inf packet sanitization       br=  0.00 status=bad_input     conf=0.000 amp=0.000 cv=0.000 fs= 0.00
+[PASS] UART silence timeout          br=  0.00 status=stale         conf=0.000 amp=0.000 cv=0.000 fs= 0.00
+[PASS] wrong sampling clock 40Hz     br=  0.00 status=timebase      conf=0.000 amp=0.000 cv=0.000 fs=40.00
+[PASS] large step / motion gate      br=  0.00 status=motion        conf=0.000 amp=0.000 cv=0.000 fs= 0.00
+[PASS] step change 12 -> 22          br= 22.00 status=ok            conf=0.999 amp=0.768 cv=0.010 fs=50.00
+[PASS] strong second harmonic (10+20) br= 10.00 status=ok            conf=0.999 amp=0.744 cv=0.226 fs=50.00
+
+RESULT: 0 failed adversarial tests
+== v8 edge tests ==
+[PASS] out of range 6bpm           br=0.00 q=low_quality
+[PASS] out of range 7bpm           br=0.00 q=low_quality
+[PASS] out of range 35bpm          br=0.00 q=low_quality
+[PASS] out of range 45bpm          br=0.00 q=low_quality
+[PASS] out of range 55bpm          br=0.00 q=low_quality
+[PASS] unsigned 0..2pi phase       br=16.01 q=ok
+[PASS] gap invalidates             br=0.00 q=stale
+[PASS] recover after UART gap      br=16.01 q=ok
+[PASS] recover after NaN           br=16.01 q=ok
+EDGE RESULT: 0 failures
+== v8 ESP32-interface stub + protocol tests ==
+[PASS] accept valid phase frame
+[PASS] reject corrupt header checksum
+[PASS] parser recovers after malformed CRC byte 0x01
+[PASS] reject corrupt payload checksum
+[PASS] reject oversized payload before storage
+[PASS] parser recovers from truncated frame after 200ms idle
+[PASS] live protocol->filter path estimates 16 bpm
+[PASS] no-human TF flag immediately clears estimate
+[PASS] phase packets ignored with no human
+[PASS] valid TF packet with Inf float rejected
+[PASS] button bounce (<80ms) is ignored
+[PASS] stable press accepted after debounce
+[PASS] second stable respiratory annotation accepted
+PROTOCOL RESULT: 0 failures
+== v8 stress/known-limitations (diagnostic, NOT a pass/fail suite) ==
+random walk (no respiration)  | valid  0/15 | mean  0.00 | last   0.00 low_quality    | fs 50.00
+0.12Hz sway plus 1.5Hz        | valid  0/15 | mean  0.00 | last   0.00 low_quality    | fs 50.00
+16bpm plus 1.2Hz motion       | valid  0/15 | mean  0.00 | last   0.00 low_quality    | fs 50.00
+low amplitude 16 bpm          | valid 15/15 | mean 15.99 | last  16.08 ok             | fs 50.00
+16bpm high white noise        | valid 15/15 | mean 16.01 | last  15.99 ok             | fs 50.00
+pure 15bpm periodic motion    | valid 15/15 | mean 15.00 | last  15.00 ok             | fs 50.00
+16bpm periodic mild spikes    | valid 15/15 | mean 16.01 | last  16.01 ok             | fs 50.00
+millis uint32 wrap-around     | valid 15/15 | mean 16.01 | last  16.01 ok             | fs 50.00
+incorrect 55.6Hz              | valid  0/15 | mean  0.00 | last   0.00 timebase       | fs 55.56
+== v7 ACF fragment reproduced (NOT full v7 firmware) ==
+v7 ACF fragment: truth=12 bpm, candidate=12.20 bpm, error=+0.20
+v7 ACF fragment: truth=16 bpm, candidate= 8.06 bpm, error=-7.94
+v7 ACF fragment: truth=20 bpm, candidate=10.07 bpm, error=-9.93
+v7 ACF fragment: truth=24 bpm, candidate=12.10 bpm, error=-11.90
+v7 ACF fragment: truth=30 bpm, candidate=15.00 bpm, error=-15.00
+== undefined behavior sanitizer ==
+UBSan PASS: test_v8.cpp
+UBSan PASS: test_edge_v8.cpp
+UBSan PASS: test_protocol_v8.cpp
+UBSan PASS: test_stress_v8.cpp
