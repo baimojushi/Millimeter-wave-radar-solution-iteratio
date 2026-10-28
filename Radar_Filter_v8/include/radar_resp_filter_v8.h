@@ -16,11 +16,11 @@ static constexpr int UPDATE_STRIDE = 100; // 2 s
 static constexpr int LAG_MIN = 100;       // 30 bpm
 static constexpr int LAG_MAX = 333;       // ~9 bpm
 static constexpr uint32_t STALE_MS = 700;
-static constexpr float STEP_LIMIT_RAD = 0.90f;
+static constexpr float STEP_LIMIT_RAD = 3.0f; // ~34 cm/s radial-speed motion gate (was 0.90 -> ~4.5 cm/s; 2.0 still reset on seated micro-motion)
 // All thresholds are starting values pending real-person ground-truth validation.
 static constexpr float MIN_RMS_RAD = 0.035f;
-static constexpr float MIN_AMP_RAD = 0.045f;
-static constexpr float MIN_ACF = 0.35f;
+static constexpr float MIN_AMP_RAD = 0.020f; // 放宽 0.045 -> 0.020，适配弱呼吸相位幅度
+static constexpr float MIN_ACF = 0.25f;      // 放宽 0.35 -> 0.25，适配较弱的周期性峰值
 static constexpr float MIN_PURITY = 0.30f;
 static constexpr float MAX_CV = 0.60f;
 
